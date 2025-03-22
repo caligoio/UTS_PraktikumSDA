@@ -93,6 +93,38 @@ void reverse(char str[]){
         j--;
     }
 }
+
+void inToPre(char infix[], char Prefix[]) {
+    int i = 0, j = 0;
+    char temp;
+
+    reverse(infix); // membalik infix
+    
+    while (infix[i] != '\0') {
+        if (isOperand(infix[i])) { // Memeriksa operand secara manual
+            Prefix[j++] = infix[i];
+        } else if (infix[i] == ')') {
+            push(infix[i]);
+        } else if (infix[i] == '(') {
+            while ((temp = pop()) != ')') {
+                Prefix[j++] = temp;
+            }
+        } else if (isOperator(infix[i])) {
+            while (top != -1 && precedence(stack[top])  >= precedence(infix[i])) {
+                Prefix[j++] = pop();
+            }
+            push(infix[i]);
+        }
+        i++;
+    }
+
+    while (top != -1) {
+        Prefix[j++] = pop();
+    }
+    Prefix[j] = '\0';
+    reverse(Prefix);
+}
+
 int main() {
     char infix[MAX], postfix[MAX];
 
