@@ -79,6 +79,20 @@ void inToPost(char infix[], char postfix[]) {
     postfix[j] = '\0';
 }
 
+//fungsi untuk membalikkan string
+void reverse(char str[]){
+    int i = 0;
+    int j = strlen(str) - 1;
+    char temp;
+
+    while (i < j) {
+        temp = str[i];
+        str[i] = str[j];
+        str[j] = temp;
+        i++;
+        j--;
+    }
+}
 int main() {
     char infix[MAX], postfix[MAX];
 
