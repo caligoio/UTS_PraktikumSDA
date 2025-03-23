@@ -79,6 +79,27 @@ void inToPost(char infix[], char postfix[]) {
     postfix[j] = '\0';
 }
 
+void preToInf(char Prefix[], char infix[]) {
+    char stackpti[MAX][MAX];
+    int top = -1;
+    int length = strlen(Prefix);
+
+    // Process the prefix expression from right to left
+    for (int i = length - 1; i >= 0; i--) {
+        if (isOperator(Prefix[i])) {
+            char op1[MAX], op2[MAX], temp[MAX];
+            strcpy(op1, stackpti[top--]);
+            strcpy(op2, stackpti[top--]);
+            sprintf(temp, "(%s%c%s)", op1, Prefix[i], op2);
+            strcpy(stackpti[++top], temp);
+        } else {
+            char operand[2] = {Prefix[i], '\0'};
+            strcpy(stackpti[++top], operand);
+        }
+    }
+    strcpy(infix, stackpti[top]);
+}
+
 //fungsi untuk membalikkan string
 void reverse(char str[]){
     int i = 0;
@@ -154,6 +175,10 @@ int main() {
              printf("Ekspresi prefiks: %s\n", Prefix);
               break;
           case 4 :
+            printf("Masukkan prefix : ");
+            scanf("%s", &Prefix);
+            preToInf(Prefix, infix);
+            printf("Ekspresi infix: %s\n", infix);
               break;
          // case 5 :
           //printf("Masukkan Prefix : ");
@@ -164,8 +189,8 @@ int main() {
             case 6 :
             printf("Masukkan postfix: ");
             scanf("%s", &postfix);
-            PosttoPre(postfix, prefix);
-            printf("Ekspresi prefix: %s\n" prefix);
+            //PosttoPre(postfix, Prefix);
+            printf("Ekspresi prefiks: %s\n", Prefix);
               break;
           default:
               printf("pilihan tidak valid\n");
