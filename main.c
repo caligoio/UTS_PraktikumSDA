@@ -84,7 +84,7 @@ void preToInf(char Prefix[], char infix[]) {
     int top = -1;
     int length = strlen(Prefix);
 
-    // Process the prefix expression from right to left
+    // memproses ekspresi prefiks dari kanan ke kiri
     for (int i = length - 1; i >= 0; i--) {
         if (isOperator(Prefix[i])) {
             char op1[MAX], op2[MAX], temp[MAX];
