@@ -156,7 +156,8 @@ int main() {
     char infix[MAX], postfix[MAX], Prefix[MAX];
     int choice;
     while (1) {
-        printf("\nKonversi Operasi Aritmatika :\n 1. Infix to Postfix\n 2. Postfix to Infix\n 3. Infix to Prefix\n 4. Prefix to Infix\n 5. Prefix to Postfix\n 6. Postfix to Prefix\n");
+        printf("\nKonversi Operasi Aritmatika :\n 1. Infix to Postfix\n 2. Postfix to Infix\n 3. Infix to Prefix\n");
+        printf(" 4. Prefix to Infix\n 5. Prefix to Postfix\n 6. Postfix to Prefix\n");
         printf("Enter your choice (1-6): ");
         scanf("%d", &choice);
       
