@@ -126,13 +126,41 @@ void inToPre(char infix[], char Prefix[]) {
 }
 
 int main() {
-    char infix[MAX], postfix[MAX];
-
-    printf("Masukkan ekspresi infiks: ");
-    scanf("%s", infix);
-
-    inToPost(infix, postfix);
-    printf("Ekspresi postfiks: %s\n", postfix);
-
+    char infix[MAX], postfix[MAX], Prefix[MAX];
+    int choice;
+    while (1) {
+        printf("\nMenu for Stack\n1. Infix to Postfix\n2. Postfix to Infix\n3. Infix to Prefix\n4. Prefix to Infix\n5.Prefix to Postfix\n6.Postfix to Prefix");
+        printf("Enter your choice (1-4): ");
+        scanf("%d", &choice);
+      
+          //perulangan untuk menjalankan operasi sesuai pilihan pada Menu
+          switch(choice) {
+          case 1 :
+              printf("Masukkan Infix : ");
+              scanf("%s", &infix);
+              inToPost(infix, postfix);
+              printf("Ekspresi postfiks: %s\n", postfix);
+              break;
+          case 2 :
+              break;
+          case 3 :
+             printf("Masukkan Infix : ");
+             scanf("%s", &infix);
+             inToPre(infix, Prefix);
+             printf("Ekspresi prefiks: %s\n", Prefix);
+              break;
+          case 4 :
+              break;
+         // case 5 :
+          //printf("Masukkan Prefix : ");
+          //scanf("%s", &Prefix); 
+          //preToPost(Prefix, postfix);
+          //printf("Ekspresi postfiks: %s\n", postfix);
+            //break;
+          default:
+              printf("pilihan tidak valid\n");
+          }
+    
     return 0;
+    }
 }
