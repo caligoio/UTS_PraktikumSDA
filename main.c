@@ -146,12 +146,18 @@ void inToPre(char infix[], char Prefix[]) {
     reverse(Prefix);
 }
 
+//Fungsi untuk mengkonversi Prefix ke Postfix
+void preToPost (char Prefix[],char posfix[], char infix[]) {
+    preToInf(Prefix, infix);
+    inToPost(infix, posfix);
+}
+
 int main() {
     char infix[MAX], postfix[MAX], Prefix[MAX];
     int choice;
     while (1) {
-        printf("\nMenu for Stack\n1. Infix to Postfix\n2. Postfix to Infix\n3. Infix to Prefix\n4. Prefix to Infix\n5.Prefix to Postfix\n6.Postfix to Prefix");
-        printf("Enter your choice (1-4): ");
+        printf("\nKonversi Operasi Aritmatika :\n 1. Infix to Postfix\n 2. Postfix to Infix\n 3. Infix to Prefix\n 4. Prefix to Infix\n 5. Prefix to Postfix\n 6. Postfix to Prefix\n");
+        printf("Enter your choice (1-6): ");
         scanf("%d", &choice);
       
           //perulangan untuk menjalankan operasi sesuai pilihan pada Menu
@@ -169,28 +175,28 @@ int main() {
               printf("Ekspresi infix: %s\n", infix);
               break;
           case 3 :
-             printf("Masukkan Infix : ");
-             scanf("%s", &infix);
-             inToPre(infix, Prefix);
-             printf("Ekspresi prefiks: %s\n", Prefix);
+              printf("Masukkan Infix : ");
+              scanf("%s", &infix);
+              inToPre(infix, Prefix);
+              printf("Ekspresi prefiks: %s\n", Prefix);
               break;
           case 4 :
-            printf("Masukkan prefix : ");
-            scanf("%s", &Prefix);
-            preToInf(Prefix, infix);
-            printf("Ekspresi infix: %s\n", infix);
+              printf("Masukkan prefix : ");
+              scanf("%s", &Prefix);
+              preToInf(Prefix, infix);
+              printf("Ekspresi infix: %s\n", infix);
               break;
-         // case 5 :
-          //printf("Masukkan Prefix : ");
-          //scanf("%s", &Prefix); 
-          //preToPost(Prefix, postfix);
-          //printf("Ekspresi postfiks: %s\n", postfix);
-            //break;
-            case 6 :
-            printf("Masukkan postfix: ");
-            scanf("%s", &postfix);
+        case 5 :
+              printf("Masukkan Prefix : ");
+              scanf("%s", &Prefix); 
+              preToPost(Prefix, postfix, infix);
+              printf("Ekspresi postfiks: %s\n", postfix);
+              break;
+        case 6 :
+              printf("Masukkan postfix: ");
+              scanf("%s", &postfix);
             //PosttoPre(postfix, Prefix);
-            printf("Ekspresi prefiks: %s\n", Prefix);
+              printf("Ekspresi prefiks: %s\n", Prefix);
               break;
           default:
               printf("pilihan tidak valid\n");
