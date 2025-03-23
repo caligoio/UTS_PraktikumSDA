@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #define MAX 50
 
@@ -141,6 +142,10 @@ int main() {
               printf("Ekspresi postfiks: %s\n", postfix);
               break;
           case 2 :
+              printf("Masukkan Postfix : ");
+              scanf("%s", &postfix);
+              inToPost(postfix, infix);
+              printf("Ekspresi infix: %s\n", infix);
               break;
           case 3 :
              printf("Masukkan Infix : ");
@@ -160,7 +165,7 @@ int main() {
             printf("Masukkan postfix: ");
             scanf("%s", &postfix);
             PosttoPre(postfix, prefix);
-            printf("Ekspresi prefix: %s\n" prefix)
+            printf("Ekspresi prefix: %s\n" prefix);
               break;
           default:
               printf("pilihan tidak valid\n");
