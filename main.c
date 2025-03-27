@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 
-#define MAX 50
+#define MAX 100
 
 char stack[MAX];
 int top = -1;
@@ -200,7 +200,7 @@ int main() {
         printf("Enter your choice (1-4): ");
         scanf("%d", &choice);
       
-          //perulangan untuk menjalankan operasi sesuai pilihan pada Menu
+          //untuk menjalankan operasi sesuai pilihan pada Menu
           switch(choice) {
           case 1 :
               printf("Masukkan Infix : ");
