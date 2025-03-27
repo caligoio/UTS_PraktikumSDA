@@ -94,6 +94,7 @@ void reverse(char str[]){
     }
 }
 
+//Fungsi untuk mengkonversi Infix ke Prefix
 void inToPre(char infix[], char Prefix[]) {
     int i = 0, j = 0;
     char temp;
@@ -125,6 +126,7 @@ void inToPre(char infix[], char Prefix[]) {
     reverse(Prefix);
 }
 
+//Fungsi untuk mengkonversi Postfix ke Infix
 void postToInf(char postfix[], char infix[]) {
     char stackpti[MAX][MAX];
     int top = -1;
@@ -146,6 +148,7 @@ void postToInf(char postfix[], char infix[]) {
     strcpy(infix, stackpti[top]); //hasil infix
 }
 
+//Fungsi untuk mengkonversi Prefix ke Infix
 void preToInf(char Prefix[], char infix[]) {
     char stackpti[MAX][MAX];
     int top = -1;
@@ -167,6 +170,7 @@ void preToInf(char Prefix[], char infix[]) {
     strcpy(infix, stackpti[top]);
 }
 
+//Fungsi untuk mengkonversi Postfix ke Prefix
 void postToPre(char postfix[], char prefix[]) {
     char stack[MAX][MAX];
     int top = -1;
