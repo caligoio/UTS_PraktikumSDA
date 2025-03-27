@@ -79,27 +79,6 @@ void inToPost(char infix[], char postfix[]) {
     postfix[j] = '\0';
 }
 
-void preToInf(char Prefix[], char infix[]) {
-    char stackpti[MAX][MAX];
-    int top = -1;
-    int length = strlen(Prefix);
-
-    // memproses ekspresi prefiks dari kanan ke kiri
-    for (int i = length - 1; i >= 0; i--) {
-        if (isOperator(Prefix[i])) {
-            char op1[MAX], op2[MAX], temp[MAX];
-            strcpy(op1, stackpti[top--]);
-            strcpy(op2, stackpti[top--]);
-            sprintf(temp, "(%s%c%s)", op1, Prefix[i], op2);
-            strcpy(stackpti[++top], temp);
-        } else {
-            char operand[2] = {Prefix[i], '\0'};
-            strcpy(stackpti[++top], operand);
-        }
-    }
-    strcpy(infix, stackpti[top]);
-}
-
 //fungsi untuk membalikkan string
 void reverse(char str[]){
     int i = 0;
@@ -146,19 +125,75 @@ void inToPre(char infix[], char Prefix[]) {
     reverse(Prefix);
 }
 
-//Fungsi untuk mengkonversi Prefix ke Postfix
-void preToPost (char Prefix[],char posfix[], char infix[]) {
-    preToInf(Prefix, infix);
-    inToPost(infix, posfix);
+void postToInf(char postfix[], char infix[]) {
+    char stackpti[MAX][MAX];
+    int top = -1;
+    int length = strlen(postfix);
+
+    // memproses ekspresi prefiks dari kanan ke kiri
+    for (int i = 0; i < length; i++) {
+        if (isOperator(postfix[i])) {
+            char op1[MAX], op2[MAX], temp[MAX];
+            strcpy(op2, stackpti[top--]); // Pop operand kedua
+            strcpy(op1, stackpti[top--]); // Pop operand pertama
+            sprintf(temp, "(%s%c%s)", op1, postfix[i], op2); // gabungkan operand dengan operator
+            strcpy(stackpti[++top], temp); // push infix kemabali ke stack
+        } else {
+            char operand[2] = {postfix[i], '\0'};
+            strcpy(stackpti[++top], operand); // Push operand ke dalam stack
+        }
+    }
+    strcpy(infix, stackpti[top]); //hasil infix
+}
+
+void preToInf(char Prefix[], char infix[]) {
+    char stackpti[MAX][MAX];
+    int top = -1;
+    int length = strlen(Prefix);
+
+    // memproses ekspresi prefiks dari kanan ke kiri
+    for (int i = length - 1; i >= 0; i--) {
+        if (isOperator(Prefix[i])) {
+            char op1[MAX], op2[MAX], temp[MAX];
+            strcpy(op1, stackpti[top--]);
+            strcpy(op2, stackpti[top--]);
+            sprintf(temp, "(%s%c%s)", op1, Prefix[i], op2);
+            strcpy(stackpti[++top], temp);
+        } else {
+            char operand[2] = {Prefix[i], '\0'};
+            strcpy(stackpti[++top], operand);
+        }
+    }
+    strcpy(infix, stackpti[top]);
+}
+
+void postToPre(char postfix[], char prefix[]) {
+    char stack[MAX][MAX];
+    int top = -1;
+    int length = strlen(postfix);
+
+    // memproses ekspresi prefiks dari kanan ke kiri
+    for (int i = 0; i < length; i++) {
+        if (isOperator(postfix[i])) {
+            char op1[MAX], op2[MAX], temp[MAX];
+            strcpy(op2, stack[top--]); // Pop operand kedua
+            strcpy(op1, stack[top--]); // Pop operand pertama
+            sprintf(temp, "%c%s%s", postfix[i], op1, op2); // gabung kedalam prefix
+            strcpy(stack[++top], temp); // Push hasil kembali kedalam stack
+        } else {
+            char operand[2] = {postfix[i], '\0'};
+            strcpy(stack[++top], operand); // Push operand kedalam stack
+        }
+    }
+    strcpy(prefix, stack[top]); // The final result is at the top of the stack
 }
 
 int main() {
     char infix[MAX], postfix[MAX], Prefix[MAX];
     int choice;
     while (1) {
-        printf("\nKonversi Operasi Aritmatika :\n 1. Infix to Postfix\n 2. Postfix to Infix\n 3. Infix to Prefix\n");
-        printf(" 4. Prefix to Infix\n 5. Prefix to Postfix\n 6. Postfix to Prefix\n");
-        printf("Enter your choice (1-6): ");
+        printf("\nMenu for Stack\n1. Infix to Postfix\n2. Postfix to Infix\n3. Infix to Prefix\n4. Prefix to Infix\n5.Prefix to Postfix\n6.Postfix to Prefix");
+        printf("Enter your choice (1-4): ");
         scanf("%d", &choice);
       
           //perulangan untuk menjalankan operasi sesuai pilihan pada Menu
@@ -172,32 +207,33 @@ int main() {
           case 2 :
               printf("Masukkan Postfix : ");
               scanf("%s", &postfix);
-              inToPost(postfix, infix);
+              postToInf(postfix, infix);
               printf("Ekspresi infix: %s\n", infix);
               break;
           case 3 :
-              printf("Masukkan Infix : ");
-              scanf("%s", &infix);
-              inToPre(infix, Prefix);
-              printf("Ekspresi prefiks: %s\n", Prefix);
+             printf("Masukkan Infix : ");
+             scanf("%s", &infix);
+             inToPre(infix, Prefix);
+             printf("Ekspresi prefiks: %s\n", Prefix);
               break;
           case 4 :
-              printf("Masukkan prefix : ");
-              scanf("%s", &Prefix);
-              preToInf(Prefix, infix);
-              printf("Ekspresi infix: %s\n", infix);
+            printf("Masukkan prefix : ");
+            scanf("%s", &Prefix);
+            preToInf(Prefix, infix);
+            printf("Ekspresi infix: %s\n", infix);
               break;
-        case 5 :
-              printf("Masukkan Prefix : ");
-              scanf("%s", &Prefix); 
-              preToPost(Prefix, postfix, infix);
-              printf("Ekspresi postfiks: %s\n", postfix);
+            case 5 :
+            printf("Masukkan Prefix : ");
+            scanf("%s", &Prefix); 
+            preToInf(Prefix, infix);
+            inToPost(infix, postfix);
+            printf("Ekspresi postfiks: %s\n", postfix);
               break;
-        case 6 :
-              printf("Masukkan postfix: ");
-              scanf("%s", &postfix);
-            //PosttoPre(postfix, Prefix);
-              printf("Ekspresi prefiks: %s\n", Prefix);
+            case 6 :
+            printf("Masukkan postfix: ");
+            scanf("%s", &postfix);
+            postToPre(postfix, Prefix);
+            printf("Ekspresi prefiks: %s\n", Prefix);
               break;
           default:
               printf("pilihan tidak valid\n");
